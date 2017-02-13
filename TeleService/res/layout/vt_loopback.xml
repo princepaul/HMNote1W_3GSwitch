@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@id/VTLoopbackActivity" android:background="#ff333333" android:clickable="false" android:layout_width="fill_parent" android:layout_height="fill_parent"
+      xmlns:android="http://schemas.android.com/apk/res/android">
+        <RelativeLayout android:id="@id/VTEMRelativeLayout01" android:layout_width="320.0dip" android:layout_height="253.0dip">
+            <SurfaceView android:id="@id/VTLBHighVideo" android:layout_width="290.0dip" android:layout_height="237.0dip" android:layout_centerInParent="true" />
+        </RelativeLayout>
+        <RelativeLayout android:id="@id/VTLBRelativeLayout11" android:layout_width="320.0dip" android:layout_height="36.0dip" />
+        <RelativeLayout android:id="@id/VTLBRelativeLayout10" android:layout_width="320.0dip" android:layout_height="166.0dip">
+            <RelativeLayout android:orientation="vertical" android:id="@id/VTLBRelativeLayout03" android:layout_width="71.0dip" android:layout_height="147.0dip" android:layout_centerVertical="true" android:layout_alignParentStart="true">
+                <Button android:id="@id/VTLBStart" android:layout_width="64.0dip" android:layout_height="68.0dip" android:layout_centerInParent="true" />
+            </RelativeLayout>
+            <RelativeLayout android:id="@id/VTLBRelativeLayout02" android:layout_width="178.0dip" android:layout_height="147.0dip" android:layout_centerInParent="true">
+                <SurfaceView android:id="@id/VTLBLowVideo" android:layout_width="170.0dip" android:layout_height="139.0dip" android:layout_centerInParent="true" />
+            </RelativeLayout>
+            <RelativeLayout android:orientation="vertical" android:id="@id/VTLBRelativeLayout06" android:layout_width="71.0dip" android:layout_height="147.0dip" android:layout_centerVertical="true" android:layout_alignParentEnd="true">
+                <Button android:id="@id/VTLBEnd" android:layout_width="64.0dip" android:layout_height="68.0dip" android:layout_centerInParent="true" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

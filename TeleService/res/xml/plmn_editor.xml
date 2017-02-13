@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen android:title="@string/plmn_list_setting_title"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
+    <Preference android:title="@string/network_id" android:key="network_id_key" />
+    <EditTextPreference android:singleLine="true" android:title="@string/dialog_network_priority_title" android:key="priority_key" android:dialogTitle="@string/dialog_network_priority_title" android:inputType="number" />
+    <PreferenceScreen android:title="@string/network_type" android:key="key_network_type">
+        <intent android:targetPackage="com.android.phone" android:action="android.intent.action.MAIN" android:targetClass="com.mediatek.settings.NetworkTypePreference" />
+    </PreferenceScreen>
+</PreferenceScreen>

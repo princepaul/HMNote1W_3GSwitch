@@ -1,0 +1,23 @@
+!!brut.androlib.meta.MetaInfo
+apkFileName: TeleService.apk
+compressionType: false
+doNotCompress:
+- arsc
+isFrameworkApk: false
+packageInfo:
+  forcedPackageId: '127'
+  renameManifestPackage: com.android.phone
+sdkInfo:
+  minSdkVersion: '19'
+  targetSdkVersion: '19'
+sharedLibrary: false
+unknownFiles: {}
+usesFramework:
+  ids:
+  - 1
+  - 16
+  tag: null
+version: 2.1.0
+versionInfo:
+  versionCode: '19'
+  versionName: 4.4.2-7.2.9

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen android:title="@string/mobile_networks"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:phone="http://schemas.android.com/apk/res/com.android.phone">
+    <PreferenceScreen android:persistent="false" android:title="@string/APKTOOL_DUMMY_5dc" android:key="button_settings_manage_sub" android:summary="@string/APKTOOL_DUMMY_5dd">
+        <intent android:targetPackage="com.android.phone" android:action="android.intent.action.MAIN" android:targetClass="com.android.phone.SelectSubscription" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/cdma_lte_data_service" android:key="cdma_lte_data_service_key" />
+    <CheckBoxPreference android:persistent="false" android:title="@string/data_enabled" android:key="button_data_enabled_key" android:summary="@string/data_enable_summary" />
+    <CheckBoxPreference android:persistent="false" android:title="@string/roaming" android:key="button_roaming_key" android:summaryOn="@string/roaming_enable" android:summaryOff="@string/roaming_disable" />
+</PreferenceScreen>

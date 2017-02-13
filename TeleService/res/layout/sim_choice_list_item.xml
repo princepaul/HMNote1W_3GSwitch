@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/bg_msim_item" android:layout_width="fill_parent" android:layout_height="@dimen/select_sim_option_height" android:minHeight="@dimen/select_sim_option_height"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/img_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/select_sim_vertical_space" />
+    <TextView android:textSize="@dimen/select_sim_text_size" android:textColor="@color/select_sim_txt_color" android:id="@id/txt_displayname" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/select_sim_vertical_icon_space" />
+    <ImageView android:id="@id/img_mark_sep" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/select_sim_vertical_mark_space" android:src="@drawable/account_list_item_mark" />
+    <TextView android:textSize="@dimen/select_sim_text_size" android:textColor="@color/select_sim_txt_color" android:id="@id/txt_description" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/select_sim_vertical_mark_space" />
+    <TextView android:textSize="@dimen/select_sim_text_size" android:textColor="@color/select_sim_txt_color" android:gravity="right" android:id="@id/txt_extra" android:paddingRight="@dimen/select_sim_vertical_space" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/can_not_use" />
+</LinearLayout>

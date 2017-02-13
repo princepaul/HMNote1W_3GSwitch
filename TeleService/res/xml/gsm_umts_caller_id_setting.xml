@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen android:title="@string/caller_id_title"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.android.phone.settings.CLIRListPreference android:persistent="false" android:entries="@array/clir_choices" android:title="@string/caller_id_title" android:key="button_clir" android:defaultValue="DEFAULT" android:dialogTitle="@string/caller_id_title" android:entryValues="@array/clir_values" />
+</PreferenceScreen>

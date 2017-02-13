@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceScreen android:title="@string/network_settings_title" android:key="pref_key_call_network_setting">
+        <intent android:targetPackage="com.android.phone" android:action="android.intent.action.MAIN" android:targetClass="com.android.phone.settings.MobileNetworkSettings" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/voip_setting" android:key="pref_key_voip_setting">
+        <intent android:targetPackage="com.miui.voip" android:action="android.intent.action.MAIN" android:targetClass="com.miui.voiptalk.preference.VoipPreferenceActivity" />
+    </PreferenceScreen>
+    <miui.preference.ValuePreference android:title="@string/call_record_setting" android:key="pref_key_call_record_setting">
+        <intent android:targetPackage="com.android.phone" android:action="android.intent.action.MAIN" android:targetClass="com.android.phone.settings.CallRecordSetting" />
+    </miui.preference.ValuePreference>
+    <PreferenceScreen android:persistent="false" android:title="@string/call_forwarding_settings" android:key="button_gsm_call_forwarding">
+        <intent android:targetPackage="com.android.phone" android:action="android.intent.action.MAIN" android:targetClass="com.android.phone.settings.GsmUmtsCallForwardOptions" />
+    </PreferenceScreen>
+    <PreferenceScreen android:persistent="false" android:title="@string/call_forwarding_settings" android:key="button_cdma_call_forwarding">
+        <intent android:targetPackage="com.android.phone" android:action="android.intent.action.MAIN" android:targetClass="com.android.phone.settings.CdmaCallForwardOptions" />
+    </PreferenceScreen>
+    <PreferenceScreen android:persistent="false" android:title="@string/call_forwarding_settings" android:key="button_call_forwarding">
+        <intent android:targetPackage="com.android.phone" android:action="android.intent.action.MAIN" android:targetClass="com.android.phone.settings.CallForwardActivity" />
+    </PreferenceScreen>
+    <PreferenceScreen android:persistent="false" android:title="@string/call_waiting_title" android:key="button_gsm_call_waiting" android:summary="@string/call_waiting_summary">
+        <intent android:targetPackage="com.android.phone" android:action="android.intent.action.MAIN" android:targetClass="com.android.phone.settings.GsmUmtsCallWaitingSetting" />
+    </PreferenceScreen>
+    <com.android.phone.settings.CdmaCallWaitingPreference android:persistent="false" android:title="@string/call_waiting_title" android:key="button_cdma_cw" android:summary="@string/call_waiting_summary" android:dialogTitle="@string/call_waiting_title" />
+    <PreferenceScreen android:persistent="false" android:title="@string/call_waiting_title" android:key="button_call_waiting" android:summary="@string/call_waiting_summary">
+        <intent android:targetPackage="com.android.phone" android:action="android.intent.action.MAIN" android:targetClass="com.android.phone.settings.CallWaitingActivity" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/answer_state_setting_title" android:key="button_answer_state_setting" android:summary="@string/answer_state_setting_summary">
+        <intent android:targetPackage="com.android.phone" android:action="android.intent.action.MAIN" android:targetClass="com.android.phone.settings.AnswerStateSetting" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/cloud_antispam_title" android:key="pref_key_cloud_antispam">
+        <intent android:targetPackage="com.miui.yellowpage" android:action="android.intent.action.TURN_ON_SMART_ANTISPAM" />
+    </PreferenceScreen>
+    <miui.preference.ValuePreference android:title="@string/antispam_setting" android:key="pref_key_antispam_setting">
+        <intent android:targetPackage="com.miui.antispam" android:action="com.miui.antispam.action.ANTISPAM_SETTINGS" android:targetClass="com.miui.antispam.ui.activity.AntiSpamNewSettingsActivity" />
+    </miui.preference.ValuePreference>
+    <PreferenceScreen android:title="@string/preference_telocation_title" android:key="pref_key_telocation">
+        <intent android:targetPackage="com.android.phone" android:action="android.intent.action.MAIN" android:targetClass="com.android.phone.settings.TelocationSetting" />
+    </PreferenceScreen>
+    <miui.preference.ValuePreference android:title="@string/auto_answer_pref_title" android:key="button_auto_answer_screen">
+        <intent android:targetPackage="com.android.phone" android:action="android.intent.action.MAIN" android:targetClass="com.android.phone.settings.AutoAnswerSetting" />
+    </miui.preference.ValuePreference>
+    <PreferenceScreen android:title="@string/call_advanced_setting_title" android:key="call_advanced_setting">
+        <intent android:targetPackage="com.android.phone" android:action="android.intent.action.MAIN" android:targetClass="com.android.phone.settings.CallAdvancedSetting" />
+    </PreferenceScreen>
+</PreferenceScreen>

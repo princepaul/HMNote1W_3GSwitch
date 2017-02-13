@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="wrap_content" android:minHeight="?android:listPreferredItemHeight" android:paddingStart="10.0dip" android:paddingEnd="10.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/internetIcon" android:layout_width="48.0dip" android:layout_height="32.0dip" android:layout_centerVertical="true" android:layout_alignParentStart="true" />
+    <TextView android:textAppearance="?android:textAppearanceMedium" android:textColor="@android:color/black" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/sim_manage_sipcall" android:layout_centerVertical="true" android:layout_marginStart="10.0dip" android:layout_toEndOf="@id/internetIcon" />
+    <RadioButton android:id="@id/select" android:focusable="false" android:visibility="invisible" android:clickable="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_alignParentEnd="true" />
+</RelativeLayout>

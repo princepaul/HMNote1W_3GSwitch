@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen android:title="@string/msim_setting_categery_title" android:key="sim_info_editor"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
+    <CheckBoxPreference android:persistent="false" android:title="@string/msim_enable_sim" android:key="enable_sim" />
+    <PreferenceCategory android:title="@string/msim_setting_sim_info_editor_title">
+        <EditTextPreference android:persistent="false" android:singleLine="true" android:maxLength="20" android:title="@string/msim_info_editor_name" android:key="sim_name" android:dialogTitle="@string/msim_info_editor_name" android:imeOptions="actionDone" />
+        <EditTextPreference android:persistent="false" android:singleLine="true" android:maxLength="20" android:phoneNumber="true" android:title="@string/msim_info_editor_number" android:key="sim_number" android:dialogTitle="@string/msim_info_editor_number" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/msim_setting_operator_network_title" android:key="msim_mobile_network_setting" />
+    <PreferenceScreen android:persistent="false" android:title="@string/uplmn_list_setting_title" android:key="button_uplmn_key">
+        <intent android:targetPackage="com.android.phone" android:action="android.intent.action.MAIN" android:targetClass="com.android.phone.settings.UserPLMNListPreference" />
+    </PreferenceScreen>
+</PreferenceScreen>

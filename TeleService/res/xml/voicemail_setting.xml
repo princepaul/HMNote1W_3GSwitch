@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen android:title="@string/voicemail_settings"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:phone="http://schemas.android.com/apk/res/com.android.phone">
+    <ListPreference android:title="@string/voicemail_provider" android:key="button_voicemail_provider" android:summary="@string/voicemail_provider_summary" android:defaultValue="" />
+    <com.android.phone.settings.EditPhoneNumberPreference android:persistent="false" android:hint="@string/voicemail_settings_number_hint" android:singleLine="true" android:autoText="false" android:title="@string/voicemail_settings_number_title" android:key="button_voicemail" android:dialogTitle="@string/voicemail_settings" phone:confirmMode="confirm" />
+    <CheckBoxPreference android:persistent="true" android:title="@string/voicemail_notification_vibrate_when_title" android:key="button_voicemail_notification_vibrate_key" />
+</PreferenceScreen>

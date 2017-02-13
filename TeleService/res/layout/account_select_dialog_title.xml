@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:minHeight="@dimen/select_sim_dialog_title_min_height"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="@dimen/select_sim_text_size" android:textColor="@color/select_sim_title_txt_color" android:id="@id/txt_title" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <TextView android:textSize="@dimen/select_sim_sumary_txt_size" android:textColor="@color/select_sim_sumary_txt_color" android:id="@id/txt_summary" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/select_sim_horizontal_space" />
+</LinearLayout>

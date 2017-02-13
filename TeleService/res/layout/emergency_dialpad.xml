@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/dtmf_twelve_key_dialer_view" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_above="@id/dialpadAdditionalButtons" android:layoutDirection="ltr"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:id="@id/dialer_1" android:background="@drawable/incall_dialer_panel_buttons_1" style="@style/DialpadButtonLinearStyle">
+        <ImageButton android:id="@id/one" android:contentDescription="@string/description_image_button_one" style="@style/DialpadButtonStyle" />
+        <ImageButton android:id="@id/two" android:contentDescription="@string/description_image_button_two" style="@style/DialpadButtonStyle" />
+        <ImageButton android:id="@id/three" android:contentDescription="@string/description_image_button_three" style="@style/DialpadButtonStyle" />
+    </LinearLayout>
+    <LinearLayout android:id="@id/dialer_2" android:background="@drawable/incall_dialer_panel_buttons_2" style="@style/DialpadButtonLinearStyle">
+        <ImageButton android:id="@id/four" android:contentDescription="@string/description_image_button_four" style="@style/DialpadButtonStyle" />
+        <ImageButton android:id="@id/five" android:contentDescription="@string/description_image_button_five" style="@style/DialpadButtonStyle" />
+        <ImageButton android:id="@id/six" android:contentDescription="@string/description_image_button_six" style="@style/DialpadButtonStyle" />
+    </LinearLayout>
+    <LinearLayout android:id="@id/dialer_3" android:background="@drawable/incall_dialer_panel_buttons_3" style="@style/DialpadButtonLinearStyle">
+        <ImageButton android:id="@id/seven" android:contentDescription="@string/description_image_button_seven" style="@style/DialpadButtonStyle" />
+        <ImageButton android:id="@id/eight" android:contentDescription="@string/description_image_button_eight" style="@style/DialpadButtonStyle" />
+        <ImageButton android:id="@id/nine" android:contentDescription="@string/description_image_button_nine" style="@style/DialpadButtonStyle" />
+    </LinearLayout>
+    <LinearLayout android:id="@id/dialer_4" android:background="@drawable/incall_dialer_panel_buttons_4" android:layout_marginBottom="@dimen/dial_panel_margin" style="@style/DialpadButtonLinearStyle">
+        <ImageButton android:id="@id/star" android:contentDescription="@string/description_image_button_star" style="@style/DialpadButtonStyle" />
+        <ImageButton android:id="@id/zero" android:contentDescription="@string/description_image_button_zero" style="@style/DialpadButtonStyle" />
+        <ImageButton android:id="@id/pound" android:contentDescription="@string/description_image_button_pound" style="@style/DialpadButtonStyle" />
+    </LinearLayout>
+</LinearLayout>
