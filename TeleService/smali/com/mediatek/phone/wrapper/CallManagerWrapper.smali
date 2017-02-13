@@ -3975,7 +3975,7 @@
 .end method
 
 .method public static vtDial(Lcom/android/internal/telephony/Phone;Ljava/lang/String;I)Lcom/android/internal/telephony/Connection;
-    .locals 6
+    .locals 7
     .param p0, "phone"    # Lcom/android/internal/telephony/Phone;
     .param p1, "dialString"    # Ljava/lang/String;
     .param p2, "slotId"    # I
@@ -3989,77 +3989,95 @@
 
     .line 1272
     .local v0, "conn":Lcom/android/internal/telephony/Connection;
-    move v1, p2
+    move v2, p2
 
     .line 1274
-    .local v1, "dialSlotId":I
+    .local v2, "dialSlotId":I
     :try_start_0
     invoke-static {}, Lcom/mediatek/phone/gemini/GeminiUtils;->isGeminiSupport()Z
 
-    move-result v3
+    move-result v4
 
-    if-eqz v3, :cond_0
+    if-eqz v4, :cond_0
 
-    .line 1281
-    invoke-static {}, Lcom/mediatek/phone/gemini/GeminiUtils;->getDefaultSlot()I
+    .line 1276
+    invoke-static {v2}, Lcom/mediatek/phone/gemini/GeminiUtils;->isValidSlot(I)Z
 
-    move-result v1
+    move-result v4
 
-    .line 1282
-    const-string v3, "CallManagerWrapper"
+    if-nez v4, :cond_0
 
-    new-instance v4, Ljava/lang/StringBuilder;
+    .line 1277
+    const-string v4, "CallManagerWrapper"
 
-    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+    new-instance v5, Ljava/lang/StringBuilder;
 
-    const-string v5, "[vtDial], Only support gemini, dialSlot = "
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const-string v6, "[vtDial], invalid dialSlotId = "
 
-    move-result-object v4
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v4, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    move-result-object v5
 
-    move-result-object v4
+    invoke-virtual {v5, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v5
 
-    move-result-object v4
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    invoke-static {v3, v4}, Lcom/mediatek/phone/PhoneLog;->d(Ljava/lang/String;Ljava/lang/String;)V
+    move-result-object v5
+
+    invoke-static {v4, v5}, Lcom/mediatek/phone/PhoneLog;->i(Ljava/lang/String;Ljava/lang/String;)V
+
+    move-object v1, v0
+
+    .line 1290
+    .end local v0    # "conn":Lcom/android/internal/telephony/Connection;
+    .local v1, "conn":Lcom/android/internal/telephony/Connection;
+    :goto_0
+    return-object v1
 
     .line 1285
+    .end local v1    # "conn":Lcom/android/internal/telephony/Connection;
+    .restart local v0    # "conn":Lcom/android/internal/telephony/Connection;
     :cond_0
     invoke-static {}, Lcom/android/internal/telephony/CallManager;->getInstance()Lcom/android/internal/telephony/CallManager;
 
-    move-result-object v3
-
-    invoke-static {p0, v1}, Lcom/mediatek/phone/wrapper/PhoneWrapper;->getPhoneBySlotId(Lcom/android/internal/telephony/Phone;I)Lcom/android/internal/telephony/Phone;
-
     move-result-object v4
 
-    invoke-virtual {v3, v4, p1}, Lcom/android/internal/telephony/CallManager;->vtDial(Lcom/android/internal/telephony/Phone;Ljava/lang/String;)Lcom/android/internal/telephony/Connection;
+    invoke-static {p0, v2}, Lcom/mediatek/phone/wrapper/PhoneWrapper;->getPhoneBySlotId(Lcom/android/internal/telephony/Phone;I)Lcom/android/internal/telephony/Phone;
+
+    move-result-object v5
+
+    invoke-virtual {v4, v5, p1}, Lcom/android/internal/telephony/CallManager;->vtDial(Lcom/android/internal/telephony/Phone;Ljava/lang/String;)Lcom/android/internal/telephony/Connection;
     :try_end_0
     .catch Lcom/android/internal/telephony/CallStateException; {:try_start_0 .. :try_end_0} :catch_0
 
     move-result-object v0
 
+    :goto_1
+    move-object v1, v0
+
     .line 1290
-    :goto_0
-    return-object v0
+    .end local v0    # "conn":Lcom/android/internal/telephony/Connection;
+    .restart local v1    # "conn":Lcom/android/internal/telephony/Connection;
+    goto :goto_0
 
     .line 1286
+    .end local v1    # "conn":Lcom/android/internal/telephony/Connection;
+    .restart local v0    # "conn":Lcom/android/internal/telephony/Connection;
     :catch_0
-    move-exception v2
+    move-exception v3
 
     .line 1287
-    .local v2, "e":Lcom/android/internal/telephony/CallStateException;
-    invoke-virtual {v2}, Lcom/android/internal/telephony/CallStateException;->printStackTrace()V
+    .local v3, "e":Lcom/android/internal/telephony/CallStateException;
+    invoke-virtual {v3}, Lcom/android/internal/telephony/CallStateException;->printStackTrace()V
 
     .line 1288
     const/4 v0, 0x0
 
-    goto :goto_0
+    goto :goto_1
 .end method
 
 

@@ -1305,7 +1305,15 @@
 
     .prologue
     .line 1832
+    iget-object v0, p0, Lcom/mediatek/phone/PhoneInterfaceManagerEx;->mPhone:Lcom/android/internal/telephony/Phone;
+
     const/4 v0, 0x0
+
+    check-cast v0, Lcom/android/internal/telephony/gemini/GeminiPhone;
+
+    invoke-virtual {v0}, Lcom/android/internal/telephony/gemini/GeminiPhone;->get3GSwitchAllowed3GSlots()I
+
+    move-result v0
 
     return v0
 .end method
@@ -2767,7 +2775,15 @@
 
     .prologue
     .line 1809
+    iget-object v0, p0, Lcom/mediatek/phone/PhoneInterfaceManagerEx;->mPhone:Lcom/android/internal/telephony/Phone;
+
     const/4 v0, 0x0
+
+    check-cast v0, Lcom/android/internal/telephony/gemini/GeminiPhone;
+
+    invoke-virtual {v0}, Lcom/android/internal/telephony/gemini/GeminiPhone;->is3GSwitchManualChange3GAllowed()Z
+
+    move-result v0
 
     return v0
 .end method

@@ -668,6 +668,18 @@
     return v0
 .end method
 
+.method static synthetic access$402(Lcom/android/internal/telephony/RIL;Z)Z
+    .locals 0
+    .param p0, "x0"    # Lcom/android/internal/telephony/RIL;
+    .param p1, "x1"    # Z
+
+    .prologue
+    .line 298
+    iput-boolean p1, p0, Lcom/android/internal/telephony/RIL;->mIs3GSwitch:Z
+
+    return p1
+.end method
+
 .method static synthetic access$500(Lcom/android/internal/telephony/RIL;Landroid/os/Parcel;)V
     .locals 0
     .param p0, "x0"    # Lcom/android/internal/telephony/RIL;
@@ -1587,13 +1599,58 @@
 .end method
 
 .method static get3GSimId()I
-    .locals 1
+    .locals 5
 
     .prologue
-    .line 1944
-    const/4 v0, 0x0
+    const/4 v1, 0x0
 
-    return v0
+    .line 1936
+    const-string v2, "gsm.3gswitch"
+
+    invoke-static {v2, v1}, Landroid/os/SystemProperties;->getInt(Ljava/lang/String;I)I
+
+    move-result v0
+
+    .line 1937
+    .local v0, "simId":I
+    if-lez v0, :cond_0
+
+    sget v2, Lcom/android/internal/telephony/PhoneConstants;->GEMINI_SIM_NUM:I
+
+    if-gt v0, v2, :cond_0
+
+    .line 1938
+    add-int/lit8 v1, v0, -0x1
+
+    .line 1944
+    :goto_0
+    return v1
+
+    .line 1940
+    :cond_0
+    const-string v2, "RILJ"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "get3GSimId() got invalid property value:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v2, v3}, Landroid/telephony/Rlog;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_0
 .end method
 
 .method private getDataCallResponse(Landroid/os/Parcel;I)Lcom/android/internal/telephony/dataconnection/DataCallResponse;
@@ -19671,18 +19728,31 @@
     .param p1, "newState"    # Lcom/android/internal/telephony/CommandsInterface$RadioState;
 
     .prologue
-    const/4 v3, 0x0
+    const/4 v1, 0x1
+
+    const/4 v2, 0x0
 
     .line 2919
-    sget-boolean v1, Lcom/android/internal/telephony/RIL;->mInitialRadioStateChange:Z
+    sget-boolean v3, Lcom/android/internal/telephony/RIL;->mInitialRadioStateChange:Z
 
-    if-eqz v1, :cond_4
+    if-eqz v3, :cond_5
 
     .line 2920
     const/4 v0, 0x0
 
-    .line 2927
+    .line 2923
     .local v0, "m3GsimId":I
+    invoke-static {}, Lcom/android/internal/telephony/RIL;->get3GSimId()I
+
+    move-result v0
+
+    .line 2924
+    if-lt v0, v1, :cond_2
+
+    :goto_0
+    iput-boolean v1, p0, Lcom/android/internal/telephony/RIL;->mIs3GSwitch:Z
+
+    .line 2927
     iget-boolean v1, p0, Lcom/android/internal/telephony/RIL;->mIs3GSwitch:Z
 
     if-eqz v1, :cond_0
@@ -19694,11 +19764,11 @@
     :cond_0
     iget-boolean v1, p0, Lcom/android/internal/telephony/RIL;->mIs3GSwitch:Z
 
-    if-nez v1, :cond_3
+    if-nez v1, :cond_4
 
     iget v1, p0, Lcom/android/internal/telephony/RIL;->mySimId:I
 
-    if-nez v1, :cond_3
+    if-nez v1, :cond_4
 
     .line 2928
     :cond_1
@@ -19706,48 +19776,54 @@
 
     move-result v1
 
-    if-eqz v1, :cond_2
+    if-eqz v1, :cond_3
 
     .line 2935
     const-string v1, "RILJ"
 
-    const-string v2, "Radio ON @ init; reset to OFF"
+    const-string v3, "Radio ON @ init; reset to OFF"
 
-    invoke-static {v1, v2}, Landroid/telephony/Rlog;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v1, v3}, Landroid/telephony/Rlog;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 2939
     const/4 v1, 0x0
 
-    invoke-virtual {p0, v3, v1}, Lcom/android/internal/telephony/RIL;->setRadioMode(ILandroid/os/Message;)V
+    invoke-virtual {p0, v2, v1}, Lcom/android/internal/telephony/RIL;->setRadioMode(ILandroid/os/Message;)V
 
     .line 2945
-    :goto_0
-    sput-boolean v3, Lcom/android/internal/telephony/RIL;->mInitialRadioStateChange:Z
+    :goto_1
+    sput-boolean v2, Lcom/android/internal/telephony/RIL;->mInitialRadioStateChange:Z
 
     .line 2947
     invoke-direct {p0}, Lcom/android/internal/telephony/RIL;->disableVTCapability()V
 
     .line 2957
     .end local v0    # "m3GsimId":I
-    :goto_1
+    :goto_2
     return-void
 
-    .line 2942
     .restart local v0    # "m3GsimId":I
     :cond_2
+    move v1, v2
+
+    .line 2924
+    goto :goto_0
+
+    .line 2942
+    :cond_3
     const-string v1, "RILJ"
 
-    const-string v2, "Radio OFF @ init 3G phone"
+    const-string v3, "Radio OFF @ init 3G phone"
 
-    invoke-static {v1, v2}, Landroid/telephony/Rlog;->i(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v1, v3}, Landroid/telephony/Rlog;->i(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 2943
     invoke-virtual {p0, p1}, Lcom/android/internal/telephony/RIL;->setRadioState(Lcom/android/internal/telephony/CommandsInterface$RadioState;)V
 
-    goto :goto_0
+    goto :goto_1
 
     .line 2950
-    :cond_3
+    :cond_4
     const-string v1, "RILJ"
 
     const-string v2, "Radio OFF @ init 2G phone"
@@ -19757,14 +19833,14 @@
     .line 2951
     invoke-virtual {p0, p1}, Lcom/android/internal/telephony/RIL;->setRadioState(Lcom/android/internal/telephony/CommandsInterface$RadioState;)V
 
-    goto :goto_1
+    goto :goto_2
 
     .line 2954
     .end local v0    # "m3GsimId":I
-    :cond_4
+    :cond_5
     invoke-virtual {p0, p1}, Lcom/android/internal/telephony/RIL;->setRadioState(Lcom/android/internal/telephony/CommandsInterface$RadioState;)V
 
-    goto :goto_1
+    goto :goto_2
 .end method
 
 .method private translateStatus(I)I

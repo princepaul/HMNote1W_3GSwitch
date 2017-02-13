@@ -2601,11 +2601,148 @@
 .end method
 
 .method private handle3GSwitchLock()V
-    .locals 0
+    .locals 6
 
     .prologue
+    .line 4991
+    const-string v3, "phoneEx"
+
+    invoke-static {v3}, Landroid/os/ServiceManager;->getService(Ljava/lang/String;)Landroid/os/IBinder;
+
+    move-result-object v3
+
+    invoke-static {v3}, Lcom/mediatek/common/telephony/ITelephonyEx$Stub;->asInterface(Landroid/os/IBinder;)Lcom/mediatek/common/telephony/ITelephonyEx;
+
+    move-result-object v1
+
+    .line 4992
+    .local v1, "iTelephonyEx":Lcom/mediatek/common/telephony/ITelephonyEx;
+    invoke-virtual {p0}, Lcom/android/internal/telephony/CallManager;->getState()Lcom/android/internal/telephony/PhoneConstants$State;
+
+    move-result-object v2
+
+    .line 4994
+    .local v2, "state":Lcom/android/internal/telephony/PhoneConstants$State;
+    :try_start_0
+    sget-object v3, Lcom/android/internal/telephony/PhoneConstants$State;->IDLE:Lcom/android/internal/telephony/PhoneConstants$State;
+
+    if-ne v2, v3, :cond_1
+
+    invoke-interface {v1}, Lcom/mediatek/common/telephony/ITelephonyEx;->is3GSwitchLocked()Z
+
+    move-result v3
+
+    if-eqz v3, :cond_1
+
+    .line 4995
+    const-string v3, "CallManager"
+
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "Phone call IDLE, release 3G switch lock ["
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    iget v5, p0, Lcom/android/internal/telephony/CallManager;->m3GSwitchLockForPhoneCall:I
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    const-string v5, "]"
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-static {v3, v4}, Landroid/telephony/Rlog;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 4996
+    iget v3, p0, Lcom/android/internal/telephony/CallManager;->m3GSwitchLockForPhoneCall:I
+
+    invoke-interface {v1, v3}, Lcom/mediatek/common/telephony/ITelephonyEx;->release3GSwitchLock(I)Z
+
+    .line 4997
+    const/4 v3, -0x1
+
+    iput v3, p0, Lcom/android/internal/telephony/CallManager;->m3GSwitchLockForPhoneCall:I
+
     .line 5007
+    :cond_0
+    :goto_0
     return-void
+
+    .line 4998
+    :cond_1
+    sget-object v3, Lcom/android/internal/telephony/PhoneConstants$State;->IDLE:Lcom/android/internal/telephony/PhoneConstants$State;
+
+    if-eq v2, v3, :cond_0
+
+    invoke-interface {v1}, Lcom/mediatek/common/telephony/ITelephonyEx;->is3GSwitchLocked()Z
+
+    move-result v3
+
+    if-nez v3, :cond_0
+
+    .line 4999
+    invoke-interface {v1}, Lcom/mediatek/common/telephony/ITelephonyEx;->aquire3GSwitchLock()I
+
+    move-result v3
+
+    iput v3, p0, Lcom/android/internal/telephony/CallManager;->m3GSwitchLockForPhoneCall:I
+
+    .line 5000
+    const-string v3, "CallManager"
+
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "Phone call not IDLE, acquire 3G switch lock ["
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    iget v5, p0, Lcom/android/internal/telephony/CallManager;->m3GSwitchLockForPhoneCall:I
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    const-string v5, "]"
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-static {v3, v4}, Landroid/telephony/Rlog;->d(Ljava/lang/String;Ljava/lang/String;)I
+    :try_end_0
+    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
+
+    goto :goto_0
+
+    .line 5002
+    :catch_0
+    move-exception v0
+
+    .line 5003
+    .local v0, "e":Landroid/os/RemoteException;
+    invoke-virtual {v0}, Landroid/os/RemoteException;->printStackTrace()V
+
+    goto :goto_0
 .end method
 
 .method private handleSpeechInfo(Landroid/os/Message;)Z

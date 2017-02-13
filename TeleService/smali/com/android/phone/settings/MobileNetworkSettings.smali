@@ -83,6 +83,8 @@
 
 .field private mPhone:Lcom/android/internal/telephony/Phone;
 
+.field mPhoneMgrEx:Lcom/mediatek/phone/PhoneInterfaceManagerEx;
+
 .field private mPrefData:Lcom/android/phone/settings/MultiSimListPreference;
 
 .field private mPrefDefault:Landroid/preference/PreferenceCategory;
@@ -111,6 +113,8 @@
         }
     .end annotation
 .end field
+
+.field mTimeoutHandler:Landroid/os/Handler;
 
 
 # direct methods
@@ -172,6 +176,8 @@
     .line 143
     iput-boolean v1, p0, Lcom/android/phone/settings/MobileNetworkSettings;->isMultiSimSupported:Z
 
+    iput-object v1, p0, Lcom/android/phone/settings/MobileNetworkSettings;->mPhoneMgrEx:Lcom/mediatek/phone/PhoneInterfaceManagerEx;
+
     .line 148
     new-instance v0, Ljava/util/ArrayList;
 
@@ -183,11 +189,11 @@
     iput v1, p0, Lcom/android/phone/settings/MobileNetworkSettings;->mSimNum:I
 
     .line 152
-    new-instance v0, Lcom/android/phone/settings/MobileNetworkSettings$1;
+    new-instance v0, Lcom/android/phone/settings/MobileNetworkSettings$99;
 
-    invoke-direct {v0, p0}, Lcom/android/phone/settings/MobileNetworkSettings$1;-><init>(Lcom/android/phone/settings/MobileNetworkSettings;)V
+    invoke-direct {v0, p0}, Lcom/android/phone/settings/MobileNetworkSettings$99;-><init>(Lcom/android/phone/settings/MobileNetworkSettings;)V
 
-    iput-object v0, p0, Lcom/android/phone/settings/MobileNetworkSettings;->mReceiver:Landroid/content/BroadcastReceiver;
+    iput-object v0, p0, Lcom/android/phone/settings/MobileNetworkSettings;->mTimeoutHandler:Landroid/os/Handler;
 
     .line 431
     return-void
@@ -1308,7 +1314,14 @@
 
     invoke-virtual {p0, v4}, Lcom/android/phone/settings/MobileNetworkSettings;->addPreferencesFromResource(I)V
 
-    .line 222
+    invoke-static {}, Lcom/android/phone/PhoneGlobals;->getInstance()Lcom/android/phone/PhoneGlobals;
+
+    move-result-object v4
+
+    iget-object v4, v4, Lcom/android/phone/PhoneGlobals;->phoneMgrEx:Lcom/mediatek/phone/PhoneInterfaceManagerEx;
+
+    iput-object v4, p0, Lcom/android/phone/settings/MobileNetworkSettings;->mPhoneMgrEx:Lcom/mediatek/phone/PhoneInterfaceManagerEx;
+
     const-string v4, "connectivity"
 
     invoke-virtual {p0, v4}, Lcom/android/phone/settings/MobileNetworkSettings;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
@@ -1434,6 +1447,60 @@
     goto :goto_1
 .end method
 
+.method protected onCreateDialog(I)Landroid/app/Dialog;
+    .locals 8
+
+    .prologue
+    const/4 v0, 0x0
+
+    const/16 v1, 0x190
+
+    if-ne p1, v1, :cond_0
+
+    new-instance v1, Landroid/app/ProgressDialog;
+
+    invoke-direct {v1, p0}, Landroid/app/ProgressDialog;-><init>(Landroid/content/Context;)V
+
+    invoke-virtual {p0}, Lcom/android/phone/settings/MobileNetworkSettings;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v2
+
+    const v3, 0x7f0b00a1
+
+    invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Landroid/app/ProgressDialog;->setMessage(Ljava/lang/CharSequence;)V
+
+    const/4 v3, 0x0
+
+    invoke-virtual {v1, v3}, Landroid/app/Dialog;->setCancelable(Z)V
+
+    invoke-virtual {v1}, Landroid/app/ProgressDialog;->getWindow()Landroid/view/Window;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Landroid/view/Window;->getAttributes()Landroid/view/WindowManager$LayoutParams;
+
+    move-result-object v3
+
+    iget v4, v3, Landroid/view/WindowManager$LayoutParams;->flags:I
+
+    const/high16 v5, -0x80000000
+
+    or-int/2addr v4, v5
+
+    iput v4, v3, Landroid/view/WindowManager$LayoutParams;->flags:I
+
+    invoke-virtual {v2, v3}, Landroid/view/Window;->setAttributes(Landroid/view/WindowManager$LayoutParams;)V
+
+    move-object v0, v1
+
+    :cond_0
+    return-object v0
+.end method
+
 .method protected onDestroy()V
     .locals 2
 
@@ -1477,9 +1544,11 @@
 
     .line 560
     :cond_1
-    iget-object v0, p0, Lcom/android/phone/settings/MobileNetworkSettings;->mReceiver:Landroid/content/BroadcastReceiver;
+    iget-object v0, p0, Lcom/android/phone/settings/MobileNetworkSettings;->mTimeoutHandler:Landroid/os/Handler;
 
-    invoke-virtual {p0, v0}, Lcom/android/phone/settings/MobileNetworkSettings;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
+    const/16 v1, 0x7d1
+
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->removeMessages(I)V
 
     .line 561
     invoke-super {p0}, Lmiui/preference/PreferenceActivity;->onDestroy()V
@@ -1523,7 +1592,7 @@
 .end method
 
 .method public onPreferenceChange(Landroid/preference/Preference;Ljava/lang/Object;)Z
-    .locals 3
+    .locals 8
     .param p1, "preference"    # Landroid/preference/Preference;
     .param p2, "objValue"    # Ljava/lang/Object;
 
@@ -1551,7 +1620,7 @@
 
     move-result v2
 
-    if-eqz v2, :cond_1
+    if-eqz v2, :cond_2
 
     .line 391
     invoke-static {}, Lcom/android/phone/PhoneGlobals;->getInstance()Lcom/android/phone/PhoneGlobals;
@@ -1563,6 +1632,40 @@
     .line 392
     invoke-direct {p0, v1}, Lcom/android/phone/settings/MobileNetworkSettings;->broadcastDefaultDataSlotChangedIntent(I)V
 
+    iget-object v2, p0, Lcom/android/phone/settings/MobileNetworkSettings;->mPhoneMgrEx:Lcom/mediatek/phone/PhoneInterfaceManagerEx;
+
+    invoke-virtual {v2}, Lcom/mediatek/phone/PhoneInterfaceManagerEx;->is3GSwitchLocked()Z
+
+    move-result v2
+
+    if-nez v2, :cond_0
+
+    const/16 v2, 0x190
+
+    invoke-virtual {p0, v2}, Lcom/android/phone/settings/MobileNetworkSettings;->showDialog(I)V
+
+    iget-object v2, p0, Lcom/android/phone/settings/MobileNetworkSettings;->mPhoneMgrEx:Lcom/mediatek/phone/PhoneInterfaceManagerEx;
+
+    invoke-virtual {v2, v1}, Lcom/mediatek/phone/PhoneInterfaceManagerEx;->set3GCapabilitySIM(I)Z
+
+    move-result v2
+
+    iget-object v3, p0, Lcom/android/phone/settings/MobileNetworkSettings;->mTimeoutHandler:Landroid/os/Handler;
+
+    iget-object v4, p0, Lcom/android/phone/settings/MobileNetworkSettings;->mTimeoutHandler:Landroid/os/Handler;
+
+    const/16 v5, 0x7d1
+
+    invoke-virtual {v4, v5}, Landroid/os/Handler;->obtainMessage(I)Landroid/os/Message;
+
+    move-result-object v5
+
+    const-wide/16 v6, 0x7530
+
+    invoke-virtual {v3, v5, v6, v7}, Landroid/os/Handler;->sendMessageDelayed(Landroid/os/Message;J)Z
+
+    if-eqz v2, :cond_1
+
     .line 396
     :cond_0
     :goto_0
@@ -1573,8 +1676,15 @@
 
     return v2
 
-    .line 393
     :cond_1
+    const/16 v2, 0x190
+
+    invoke-virtual {p0, v2}, Lcom/android/phone/settings/MobileNetworkSettings;->removeDialog(I)V
+
+    goto :goto_0
+
+    .line 383
+    :cond_2
     const-string v2, "default_voice_key"
 
     invoke-virtual {v2, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -1953,6 +2063,11 @@
     invoke-super {p0}, Lmiui/preference/PreferenceActivity;->onResume()V
 
     .line 368
+    iget-object v1, p0, Lcom/android/phone/settings/MobileNetworkSettings;->mPreferenceScreen:Landroid/preference/PreferenceScreen;
+
+    invoke-virtual {v1, v0}, Landroid/preference/PreferenceScreen;->setEnabled(Z)V
+
+    .line 354
     iget-object v1, p0, Lcom/android/phone/settings/MobileNetworkSettings;->mButtonDataEnabled:Landroid/preference/CheckBoxPreference;
 
     iget-object v2, p0, Lcom/android/phone/settings/MobileNetworkSettings;->mConnectManager:Landroid/net/ConnectivityManager;
@@ -1976,19 +2091,28 @@
 
     move-result v2
 
-    if-ne v2, v0, :cond_0
+    if-ne v2, v0, :cond_1
 
     :goto_0
     invoke-virtual {v1, v0}, Landroid/preference/CheckBoxPreference;->setChecked(Z)V
+
+    .line 373
+    iget-boolean v0, p0, Lcom/android/phone/settings/MobileNetworkSettings;->isMultiSimSupported:Z
+
+    if-eqz v0, :cond_0
+
+    .line 374
+    invoke-virtual {p0}, Lcom/android/phone/settings/MobileNetworkSettings;->getSimInfo()V
 
     .line 375
     invoke-virtual {p0}, Lcom/android/phone/settings/MobileNetworkSettings;->updatePreferenceUI()V
 
     .line 376
+    :cond_0
     return-void
 
     .line 372
-    :cond_0
+    :cond_1
     const/4 v0, 0x0
 
     goto :goto_0
@@ -1998,6 +2122,9 @@
     .locals 1
 
     .prologue
+    .line 379
+    invoke-virtual {p0}, Lcom/android/phone/settings/MobileNetworkSettings;->getSimInfo()V
+
     .line 380
     invoke-virtual {p0}, Lcom/android/phone/settings/MobileNetworkSettings;->updatePreferenceUI()V
 

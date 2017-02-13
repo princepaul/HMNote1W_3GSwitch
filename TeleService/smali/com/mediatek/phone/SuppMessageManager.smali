@@ -2030,9 +2030,14 @@
 
     sparse-switch v1, :sswitch_data_0
 
+    .line 161
+    invoke-direct {p0, v0}, Lcom/mediatek/phone/SuppMessageManager;->showSSNotificationToast(Lcom/android/internal/telephony/gsm/SuppServiceNotification;)V
+
     .line 165
     :sswitch_0
     return-void
+
+    nop
 
     .line 136
     :sswitch_data_0

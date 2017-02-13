@@ -1336,95 +1336,45 @@
 .end method
 
 .method private updateCheckState()V
-    .locals 4
+    .locals 2
 
     .prologue
-    const/4 v0, 0x1
+    .line 287
+    iget-object v0, p0, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->mEnableSim:Landroid/preference/CheckBoxPreference;
 
-    .line 303
-    iget-object v2, p0, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->mEnableSim:Landroid/preference/CheckBoxPreference;
+    if-eqz v0, :cond_0
 
-    if-eqz v2, :cond_0
+    .line 288
+    iget-object v0, p0, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->mEnableSim:Landroid/preference/CheckBoxPreference;
 
-    .line 304
-    iget-object v2, p0, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->mEnableSim:Landroid/preference/CheckBoxPreference;
+    iget v1, p0, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->mSlotId:I
 
-    iget v3, p0, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->mSlotId:I
-
-    invoke-direct {p0, v3}, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->isRadioInOn(I)Z
-
-    move-result v3
-
-    invoke-virtual {v2, v3}, Landroid/preference/CheckBoxPreference;->setChecked(Z)V
-
-    .line 307
-    :cond_0
-    iget-object v2, p0, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->mSubscriptionInfo:Lmiui/telephony/SubscriptionInfo;
-
-    invoke-virtual {v2}, Lmiui/telephony/SubscriptionInfo;->isActivated()Z
+    invoke-direct {p0, v1}, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->isRadioInOn(I)Z
 
     move-result v1
 
-    .line 308
-    .local v1, "enabled":Z
-    sget-boolean v2, Lmiui/os/Build;->IS_CM_CUSTOMIZATION_TEST:Z
+    invoke-virtual {v0, v1}, Landroid/preference/CheckBoxPreference;->setChecked(Z)V
 
-    if-nez v2, :cond_1
+    .line 290
+    :cond_0
+    sget-boolean v0, Lmiui/os/Build;->IS_CM_CUSTOMIZATION_TEST:Z
 
-    .line 309
-    iget-object v2, p0, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->mPreferenceScreen:Landroid/preference/PreferenceScreen;
+    if-nez v0, :cond_1
 
-    invoke-direct {p0, v2, v1}, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->setEnabledStateOnPreferences(Landroid/preference/Preference;Z)V
+    .line 291
+    iget-object v0, p0, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->mPreferenceScreen:Landroid/preference/PreferenceScreen;
 
-    .line 313
+    iget-object v1, p0, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->mSubscriptionInfo:Lmiui/telephony/SubscriptionInfo;
+
+    invoke-virtual {v1}, Lmiui/telephony/SubscriptionInfo;->isActivated()Z
+
+    move-result v1
+
+    invoke-direct {p0, v0, v1}, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->setEnabledStateOnPreferences(Landroid/preference/Preference;Z)V
+
+    .line 293
     :cond_1
-    if-eqz v1, :cond_4
-
-    invoke-virtual {p0}, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v2
-
-    const-string v3, "airplane_mode_on"
-
-    invoke-static {v2, v3, v0}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v2
-
-    if-nez v2, :cond_4
-
-    .line 315
-    .local v0, "enableOptions":Z
-    :goto_0
-    iget-object v2, p0, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->mCdmaOptions:Lcom/android/phone/settings/CdmaOptions;
-
-    if-eqz v2, :cond_2
-
-    .line 316
-    iget-object v2, p0, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->mCdmaOptions:Lcom/android/phone/settings/CdmaOptions;
-
-    invoke-virtual {v2, v0}, Lcom/android/phone/settings/CdmaOptions;->setOptionEnabled(Z)V
-
-    .line 318
-    :cond_2
-    iget-object v2, p0, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->mGsmUmtsOptions:Lcom/android/phone/settings/GsmUmtsOptions;
-
-    if-eqz v2, :cond_3
-
-    .line 319
-    iget-object v2, p0, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->mGsmUmtsOptions:Lcom/android/phone/settings/GsmUmtsOptions;
-
-    invoke-virtual {v2, v0}, Lcom/android/phone/settings/GsmUmtsOptions;->setOptionEnabled(Z)V
-
-    .line 321
-    :cond_3
     return-void
-
-    .line 313
-    .end local v0    # "enableOptions":Z
-    :cond_4
-    const/4 v0, 0x0
-
-    goto :goto_0
 .end method
 
 .method private updateInfo()V
@@ -1778,21 +1728,7 @@
 
     invoke-static {v6, v7}, Lmiui/telephony/SubscriptionManager;->putSlotIdExtra(Landroid/content/Intent;I)V
 
-    .line 219
-    iget v6, p0, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->mSlotId:I
-
-    if-eqz v6, :cond_1
-
-    .line 220
-    if-eqz v5, :cond_1
-
-    .line 221
-    iget-object v6, p0, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->mPreferenceScreen:Landroid/preference/PreferenceScreen;
-
-    invoke-virtual {v6, v5}, Landroid/preference/PreferenceScreen;->removePreference(Landroid/preference/Preference;)Z
-
-    .line 224
-    :cond_1
+    .line 202
     invoke-static {}, Lmiui/telephony/TelephonyManager;->getDefault()Lmiui/telephony/TelephonyManager;
 
     move-result-object v6
@@ -1803,7 +1739,29 @@
 
     if-le v6, v9, :cond_2
 
-    .line 225
+    .line 204
+    invoke-static {}, Lmiui/telephony/SubscriptionManager;->getDefault()Lmiui/telephony/SubscriptionManager;
+
+    move-result-object v6
+
+    invoke-virtual {v6}, Lmiui/telephony/SubscriptionManager;->getDefaultDataSlotId()I
+
+    move-result v6
+
+    iget v7, p0, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->mSlotId:I
+
+    if-eq v6, v7, :cond_1
+
+    .line 205
+    if-eqz v5, :cond_1
+
+    .line 206
+    iget-object v6, p0, Lcom/android/phone/settings/MultiSimInfoEditorActivity;->mPreferenceScreen:Landroid/preference/PreferenceScreen;
+
+    invoke-virtual {v6, v5}, Landroid/preference/PreferenceScreen;->removePreference(Landroid/preference/Preference;)Z
+
+    .line 209
+    :cond_1
     invoke-static {}, Lmiui/telephony/SubscriptionManager;->getDefault()Lmiui/telephony/SubscriptionManager;
 
     move-result-object v6

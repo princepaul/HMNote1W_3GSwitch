@@ -33,7 +33,7 @@
 
 .field public static final MTK_FLIGHT_MODE_POWER_OFF_MD:Z = true
 
-.field public static final MTK_GEMINI_3G_SWITCH:Z = false
+.field public static final MTK_GEMINI_3G_SWITCH:Z = true
 
 .field public static final MTK_GEMINI_ENHANCEMENT:Z = true
 
